@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import AppContext from "../../context/AppContext"
+import AppContext from "../../context/githubContext/AppContext"
 import User from "./User"
 
 function UserResults() {

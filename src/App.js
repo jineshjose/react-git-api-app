@@ -3,7 +3,7 @@ import Footer from "./components/layouts/Footer";
 import Main from "./components/Main";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import { ApiProvider } from "./context/AppContext";
+import { ApiProvider } from "./context/githubContext/AppContext";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 function App() {
   return (

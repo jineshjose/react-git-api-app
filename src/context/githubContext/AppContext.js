@@ -1,10 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import githubReducer from "./GithubReducer";
 const AppContext = createContext();
 
 export const ApiProvider = ({children}) => {
 
-    const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(true)
+    const initialState = {
+        users: [],
+        loading: true,
+    }
+    const [state,dispatch] = useReducer(githubReducer, initialState)
     
     useEffect(()=> {
         fetchUsers()
@@ -16,16 +20,18 @@ export const ApiProvider = ({children}) => {
             }
         })
         const data = await response.json()
-        setUsers(data)
-        setLoading(false)
-        console.log(users)
+        
+        dispatch({
+            type: 'GET_USERS',
+            payload:data,
+        })
     }
 
     return(
         <AppContext.Provider value={
             {
-                users,
-                loading,
+                users:state.users,
+                loading:state.loading,
 
             }
         }>
