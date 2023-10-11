@@ -6,14 +6,18 @@ export const ApiProvider = ({children}) => {
 
     const initialState = {
         users: [],
-        loading: true,
+        loading: false,
     }
     const [state,dispatch] = useReducer(githubReducer, initialState)
     
     useEffect(()=> {
         fetchUsers()
     },[])
+    
     const fetchUsers = async () => {
+        
+        setLoading()
+
         const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`,{
             headers:{
                 Authorization:`token ${process.env.REACT_APP_GITHUB_TOKEN}`
@@ -25,7 +29,16 @@ export const ApiProvider = ({children}) => {
             type: 'GET_USERS',
             payload:data,
         })
+
+        
     }
+    //-- Set loading --
+    const setLoading = ()=> {
+        dispatch({
+            type: 'SET_LOADING'
+        })
+    }
+    //-- --//
 
     return(
         <AppContext.Provider value={
